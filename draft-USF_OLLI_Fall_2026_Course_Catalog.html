@@ -1,0 +1,3366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USF OLLI Fall 2026 — Course Catalog</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; font-size: 13px; color: #1a1a1a; background: #fff; padding: 24px 28px; max-width: 1150px; margin: 0 auto; }
+
+  .page-header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 2.5px solid #002D62; padding-bottom: 10px; margin-bottom: 14px; }
+  .page-header h1 { font-size: 20px; font-weight: 700; color: #002D62; letter-spacing: -.3px; }
+  .page-header .sub { font-size: 12px; color: #666; margin-top: 2px; }
+  .header-right { text-align: right; font-size: 11px; color: #777; line-height: 1.6; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; padding: 9px 14px; background: #f7f8fa; border-radius: 6px; border: 0.5px solid #dde1e7; }
+  .legend-group { display: flex; flex-direction: column; gap: 4px; }
+  .legend-title { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #999; }
+  .legend-items { display: flex; flex-wrap: wrap; gap: 5px; }
+  .legend-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .vsep { width: 1px; background: #dde1e7; align-self: stretch; }
+
+  .instructions {
+    font-size: 13px;
+    color: #555;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    max-width: 520px;
+  }
+  .search-bar input {
+    flex: 1;
+    padding: 8px 14px;
+    border: 1.5px solid #cdd3db;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    color: #222;
+    background: #fff;
+    transition: border-color .15s;
+  }
+  .search-bar input:focus { border-color: #002D62; }
+  #search-clear {
+    background: none;
+    border: none;
+    font-size: 15px;
+    color: #aaa;
+    cursor: pointer;
+    padding: 4px 6px;
+    line-height: 1;
+  }
+  #search-clear:hover { color: #333; }
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; align-items: center; }
+  .filter-label-sm { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .05em; margin-right: 2px; }
+  .sep { width: 1px; height: 20px; background: #dde1e7; margin: 0 2px; }
+  .fbtn { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 20px; border: 1px solid #ccc; background: #fff; cursor: pointer; color: #555; transition: all .15s; }
+  .fbtn:hover { background: #f0f2f5; }
+  .fbtn.active { border-width: 1.5px; font-weight: 700; }
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    max-width: 500px;
+  }
+  .search-bar input {
+    flex: 1;
+    padding: 8px 16px;
+    border: 1.5px solid #cdd3db;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    color: #222;
+    background: #fff;
+    transition: border-color .15s;
+    font-family: inherit;
+  }
+  .search-bar input:focus { border-color: #002D62; box-shadow: 0 0 0 3px rgba(0,45,98,.08); }
+  #search-clear {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #bbb;
+    cursor: pointer;
+    padding: 4px 7px;
+    line-height: 1;
+    border-radius: 50%;
+  }
+  #search-clear:hover { color: #444; background: #f0f2f5; }
+  .count-row { font-size: 11px; color: #999; margin-bottom: 8px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 7px; }
+  .card { border: 0.75px solid #e0e4ea; border-radius: 7px; padding: 9px 10px 8px; background: #fff; break-inside: avoid; display: flex; flex-direction: column; cursor: pointer; transition: box-shadow .15s, border-color .15s; }
+  .card:hover { box-shadow: 0 2px 10px rgba(0,45,98,.12); border-color: #b0c4de; }
+  .card.hidden { display: none; }
+  .card { position: relative; }
+  .card-top { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 6px; }
+  .subj-icon { width: 24px; height: 24px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .card-info { flex: 1; min-width: 0; }
+  .card-title { font-size: 11.5px; font-weight: 600; line-height: 1.35; color: #111; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-sgl { font-size: 10.5px; color: #888; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-schedule { display: flex; align-items: center; gap: 5px; margin: 5px 0; padding: 3px 6px; background: #f4f6f9; border-radius: 4px; font-size: 10.5px; color: #333; font-weight: 500; }
+  .sched-day { font-weight: 700; color: #002D62; }
+  .sched-dot { color: #bbb; }
+  .sched-time { color: #666; font-weight: 400; }
+  .card-badges { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 7px; }
+  .badge { font-size: 10px; font-weight: 500; padding: 1.5px 6px; border-radius: 20px; }
+  .card-btn { margin-top: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 600; color: #002D62; padding: 3px 8px; border-radius: 4px; border: 1px solid #ccd6e8; background: #f0f4fb; width: fit-content; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; border-radius: 10px; max-width: 680px; width: 100%; max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 8px 40px rgba(0,0,0,.25); }
+  .modal-header { padding: 18px 20px 12px; border-bottom: 1px solid #e8ecf2; flex-shrink: 0; }
+  .modal-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .modal-title { font-size: 16px; font-weight: 700; color: #002D62; line-height: 1.35; }
+  .modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #888; line-height: 1; padding: 0 2px; flex-shrink: 0; }
+  .modal-close:hover { color: #333; }
+  .modal-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .modal-body { padding: 16px 20px 20px; overflow-y: auto; flex: 1; }
+  .modal-sgl { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 12px; }
+  .modal-section { margin-bottom: 14px; }
+  .modal-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #999; margin-bottom: 4px; }
+  .modal-section p { font-size: 13px; line-height: 1.6; color: #333; }
+  .modal-section p + p { margin-top: 8px; }
+  .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+
+  @media print {
+    body { padding: 14px 18px; }
+    .filter-bar, .count-row, .modal-overlay { display: none !important; }
+    .card { page-break-inside: avoid; border-color: #ccc; cursor: default; }
+    .grid { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+  }
+  @media (max-width: 600px) {
+    .modal-row { grid-template-columns: 1fr; }
+    .modal { max-height: 95vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <h1>USF OLLI Fall 2026 — Course Catalog</h1>
+    <div class="sub">Osher Lifelong Learning Institute at the University of South Florida</div>
+    <div class="instructions">Browse the Fall 2026 course list using the subject, day, or status filters. Search by course title, instructor, topic, or course ID. Click a course card for enrollment and schedule details.</div>
+  </div>
+  <div class="header-right"><span id="total-count"></span> courses &nbsp;|&nbsp; <span id="subject-count"></span> subjects</div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label-sm">Filter:</span>
+  <div id="subj-btns" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
+  <div class="sep"></div>
+  <div id="day-btns" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
+  <div class="sep"></div>
+  <button class="fbtn" data-type="status" data-val="Cancelled" style="border-color:#A32D2D;color:#A32D2D" onclick="toggle(this)">Cancelled</button>
+  <button class="fbtn" style="border-color:#bbb;color:#999;font-size:10px" onclick="clearAll()">Clear all</button>
+</div>
+
+<div class="search-bar">
+  <input type="text" id="search-input" placeholder="Search courses, instructors, subjects, course IDs…" oninput="applyFilters()" autocomplete="off">
+  <button id="search-clear" onclick="document.getElementById('search-input').value='';applyFilters();" title="Clear search">✕</button>
+</div>
+
+<div class="count-row" id="count-row"></div>
+<div class="grid" id="grid"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-header-top">
+        <div class="modal-title" id="modal-title"></div>
+        <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      </div>
+      <div class="modal-meta" id="modal-meta"></div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const subjectConfig = {
+  "Applications": {
+    "label": "Applications",
+    "bg": "#E6F1FB",
+    "text": "#0C447C",
+    "dot": "#185FA5",
+    "emoji": "📘"
+  },
+  "Camera & Photo": {
+    "label": "Camera & Photo",
+    "bg": "#EAF3DE",
+    "text": "#27500A",
+    "dot": "#3B6D11",
+    "emoji": "🌿"
+  },
+  "Computers": {
+    "label": "Computers",
+    "bg": "#FAECE7",
+    "text": "#712B13",
+    "dot": "#993C1D",
+    "emoji": "🎨"
+  },
+  "Day Trips": {
+    "label": "Day Trips",
+    "bg": "#EEEDFE",
+    "text": "#3C3489",
+    "dot": "#534AB7",
+    "emoji": "🎵"
+  },
+  "Events": {
+    "label": "Events",
+    "bg": "#FAEEDA",
+    "text": "#633806",
+    "dot": "#854F0B",
+    "emoji": "💬"
+  },
+  "Fitness, Lifestyles": {
+    "label": "Fitness, Lifestyles",
+    "bg": "#E1F5EE",
+    "text": "#085041",
+    "dot": "#0F6E56",
+    "emoji": "🔬"
+  },
+  "Friday Lecture Series": {
+    "label": "Friday Lecture Series",
+    "bg": "#FBEAF0",
+    "text": "#72243E",
+    "dot": "#993556",
+    "emoji": "🎬"
+  },
+  "History": {
+    "label": "History",
+    "bg": "#F1EFE8",
+    "text": "#444441",
+    "dot": "#5F5E5A",
+    "emoji": "✏️"
+  },
+  "Humanities & Arts": {
+    "label": "Humanities & Arts",
+    "bg": "#FCEBEB",
+    "text": "#791F1F",
+    "dot": "#A32D2D",
+    "emoji": "📅"
+  },
+  "Literature & Writing": {
+    "label": "Literature & Writing",
+    "bg": "#DDE8F7",
+    "text": "#042C53",
+    "dot": "#185FA5",
+    "emoji": "💻"
+  },
+  "Mobile Device": {
+    "label": "Mobile Device",
+    "bg": "#E6F1FB",
+    "text": "#0C447C",
+    "dot": "#185FA5",
+    "emoji": "📘"
+  },
+  "Osher Lifelong Learning Institute": {
+    "label": "Osher Lifelong Learning Institute",
+    "bg": "#EAF3DE",
+    "text": "#27500A",
+    "dot": "#3B6D11",
+    "emoji": "🌿"
+  },
+  "Other": {
+    "label": "Other",
+    "bg": "#FAECE7",
+    "text": "#712B13",
+    "dot": "#993C1D",
+    "emoji": "🎨"
+  },
+  "Politics & Current Events": {
+    "label": "Politics & Current Events",
+    "bg": "#EEEDFE",
+    "text": "#3C3489",
+    "dot": "#534AB7",
+    "emoji": "🎵"
+  },
+  "Science & Nature": {
+    "label": "Science & Nature",
+    "bg": "#FAEEDA",
+    "text": "#633806",
+    "dot": "#854F0B",
+    "emoji": "💬"
+  },
+  "Technology Topics": {
+    "label": "Technology Topics",
+    "bg": "#E1F5EE",
+    "text": "#085041",
+    "dot": "#0F6E56",
+    "emoji": "🔬"
+  }
+};
+const lengthConfig = {"5a":{bg:"#E1F5EE",text:"#085041"},"5b":{bg:"#FAEEDA",text:"#633806"},"10":{bg:"#EEEDFE",text:"#3C3489"}};
+const lengthLabel = {"5a":"5a","5b":"5b","10":"10 wk"};
+const modalityConfig = {"online":{bg:"#E6F1FB",text:"#0C447C"},"in-person":{bg:"#EAF3DE",text:"#27500A"}};
+const dayAbbr = {Monday:"Mon",Tuesday:"Tue",Wednesday:"Wed",Thursday:"Thu",Friday:"Fri"};
+const periodAbbr = {"Period 1":"P1","Period 2":"P2","Period 3":"P3"};
+
+const courses = [
+  {
+    "title": "Birds and Burrows",
+    "instructor": "Ann Paul",
+    "subject": "Science & Nature",
+    "day": "Friday",
+    "time": "2:00 PM–3:30 PM",
+    "dates": "Oct 2, 2026",
+    "courseId": "5194",
+    "sectionId": "10644",
+    "status": "Available",
+    "students": 6,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$174.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5194"
+  },
+  {
+    "title": "Building Birding Skills",
+    "instructor": "Ann Paul",
+    "subject": "Science & Nature",
+    "day": "Friday",
+    "time": "2:00 PM–3:30 PM",
+    "dates": "Sep 25, 2026",
+    "courseId": "5192",
+    "sectionId": "10642",
+    "status": "Available",
+    "students": 12,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$319.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5192"
+  },
+  {
+    "title": "Saving Florida, Women's Fight for the Environment - CANCELLED 9/16/2026",
+    "instructor": "Ann Paul",
+    "subject": "Science & Nature",
+    "day": "Friday",
+    "time": "2:00 PM–3:30 PM",
+    "dates": "Sep 18, 2026",
+    "courseId": "5190",
+    "sectionId": "10640",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5190"
+  },
+  {
+    "title": "The Benefits of Strength Training for Life's Journey - CANCELLED 9/15/2026",
+    "instructor": "Denise Foss; Eric Levitan",
+    "subject": "Humanities & Arts",
+    "day": "Friday",
+    "time": "2:00 PM–3:30 PM",
+    "dates": "Sep 18, 2026",
+    "courseId": "5244",
+    "sectionId": "10689",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 2,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5244"
+  },
+  {
+    "title": "What Makes You You? Exploring the Science of Consciousness",
+    "instructor": "John Hassell",
+    "subject": "Science & Nature",
+    "day": "Friday",
+    "time": "2:00 PM–3:30 PM",
+    "dates": "Oct 16, 2026",
+    "courseId": "5207",
+    "sectionId": "10657",
+    "status": "Available",
+    "students": 8,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$232.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5207"
+  },
+  {
+    "title": "What Google's Free Tools Can Do for You",
+    "instructor": "Mehdi Rakhshani",
+    "subject": "Applications",
+    "day": "Friday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Nov 6 – Nov 13, 2026",
+    "courseId": "5170",
+    "sectionId": "10619",
+    "status": "Available",
+    "students": 10,
+    "capacity": 10,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$390.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5170"
+  },
+  {
+    "title": "ABOLT: A Bunch of Little Things",
+    "instructor": "Jean Ryan",
+    "subject": "Fitness, Lifestyles",
+    "day": "Friday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Sep 18, 2026",
+    "courseId": "5242",
+    "sectionId": "10687",
+    "status": "Available",
+    "students": 6,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$174.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5242"
+  },
+  {
+    "title": "Healthy Aging",
+    "instructor": "Jean Ryan",
+    "subject": "Humanities & Arts",
+    "day": "Friday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Oct 23 – Oct 30, 2026",
+    "courseId": "5243",
+    "sectionId": "10688",
+    "status": "Available",
+    "students": 2,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$78.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5243"
+  },
+  {
+    "title": "Self-Hypnosis: Pathway to Peace of Mind",
+    "instructor": "Anne Haywood; Peter Arizu; Sharon Stoll; Valerie Chittim",
+    "subject": "Fitness, Lifestyles",
+    "day": "Friday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Oct 2 – Oct 30, 2026",
+    "courseId": "5249",
+    "sectionId": "10694",
+    "status": "Available",
+    "students": 13,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 4,
+    "staffRoles": "TaEnrollment; TeacherEnrollment",
+    "revenue": "$900.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5249"
+  },
+  {
+    "title": "iPhone Shorts: Apple Shortcuts",
+    "instructor": "Brian Noriega",
+    "subject": "Applications",
+    "day": "Friday",
+    "time": "2:30 PM–4:30 PM",
+    "dates": "Nov 20, 2026",
+    "courseId": "5181",
+    "sectionId": "10631",
+    "status": "Available",
+    "students": 2,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$58.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5181"
+  },
+  {
+    "title": "Better Composition for Outdoor Photography",
+    "instructor": "Donna McGrew",
+    "subject": "Camera & Photo",
+    "day": "Friday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Nov 6 – Nov 13, 2026",
+    "courseId": "5168",
+    "sectionId": "10617",
+    "status": "Available",
+    "students": 4,
+    "capacity": 8,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$156.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5168"
+  },
+  {
+    "title": "Spark to Spotlight: Create Your Own OLLI Course",
+    "instructor": "Earl Richardson",
+    "subject": "Fitness, Lifestyles",
+    "day": "Friday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Nov 6 – Nov 20, 2026",
+    "courseId": "5241",
+    "sectionId": "10686",
+    "status": "Available",
+    "students": 1,
+    "capacity": 12,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5241"
+  },
+  {
+    "title": "Walking in the Footsteps of Giants: A Visual Tour of Science History",
+    "instructor": "Johnny El-Rady",
+    "subject": "Science & Nature",
+    "day": "Friday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Dec 4, 2026",
+    "courseId": "5217",
+    "sectionId": "10667",
+    "status": "Available",
+    "students": 4,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$116.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5217"
+  },
+  {
+    "title": "What Makes You You? Exploring the Science of Consciousness",
+    "instructor": "John Hassell; Peter Neame",
+    "subject": "Science & Nature",
+    "day": "Friday",
+    "time": "4:00 AM–3:30 AM",
+    "dates": "Oct 16 – Oct 17, 2026",
+    "courseId": "5286",
+    "sectionId": "10760",
+    "status": "Available",
+    "students": 14,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 2,
+    "staffRoles": "TaEnrollment; TeacherEnrollment",
+    "revenue": "$406.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5286"
+  },
+  {
+    "title": "East Meets West — Discovering the Wisdom of Personalized Herbal Wellness",
+    "instructor": "Vicky Lin",
+    "subject": "Friday Lecture Series",
+    "day": "Friday",
+    "time": "4:15 PM–5:15 PM",
+    "dates": "Sep 18, 2026",
+    "courseId": "5269",
+    "sectionId": "10714",
+    "status": "Available",
+    "students": 23,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5269"
+  },
+  {
+    "title": "Lifestyle, Brain Health, and Aging: Understanding What Supports Cognitive Wellness",
+    "instructor": "Stephanie Hart-Hughes",
+    "subject": "Friday Lecture Series",
+    "day": "Friday",
+    "time": "4:15 PM–5:15 PM",
+    "dates": "Oct 30, 2026",
+    "courseId": "5271",
+    "sectionId": "10716",
+    "status": "Available",
+    "students": 24,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5271"
+  },
+  {
+    "title": "Queen of the Clouds: Joan Merriam Smith and Jerrie Mock's Epic Quest to Become the First Woman to Fly Solo Around the World",
+    "instructor": "Taylor Phillips",
+    "subject": "Friday Lecture Series",
+    "day": "Friday",
+    "time": "4:15 PM–5:15 PM",
+    "dates": "Oct 2, 2026",
+    "courseId": "5270",
+    "sectionId": "10715",
+    "status": "Available",
+    "students": 14,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5270"
+  },
+  {
+    "title": "Lakeside Inn: The Legacy in Mount Dora",
+    "instructor": "Madonn Wise",
+    "subject": "Friday Lecture Series",
+    "day": "Friday",
+    "time": "5:00 AM–4:30 AM",
+    "dates": "Nov 20 – Nov 21, 2026",
+    "courseId": "5292",
+    "sectionId": "10788",
+    "status": "Available",
+    "students": 14,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5292"
+  },
+  {
+    "title": "Trump 2.0: Traits, Policies, and Long-Term Effects",
+    "instructor": "Ronald Weaver",
+    "subject": "Politics & Current Events",
+    "day": "Friday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Sep 11 – Sep 25, 2026",
+    "courseId": "5245",
+    "sectionId": "10690",
+    "status": "Available",
+    "students": 11,
+    "capacity": 26,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$196.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5245"
+  },
+  {
+    "title": "Will a Russian, Chinese, and American Trio Rule the World?",
+    "instructor": "Ronald Weaver",
+    "subject": "History",
+    "day": "Friday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Oct 2 – Oct 16, 2026",
+    "courseId": "5246",
+    "sectionId": "10691",
+    "status": "Available",
+    "students": 9,
+    "capacity": 26,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$441.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5246"
+  },
+  {
+    "title": "500 Years of Florida Heroes and Scandals",
+    "instructor": "Ronald Weaver",
+    "subject": "History",
+    "day": "Friday",
+    "time": "5:00 PM–7:30 PM",
+    "dates": "Oct 23 – Nov 6, 2026",
+    "courseId": "5247",
+    "sectionId": "10692",
+    "status": "Available",
+    "students": 8,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$98.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5247"
+  },
+  {
+    "title": "Passport to Adventure: Tell OLLI Where to Go Next!",
+    "instructor": "Instructor not listed",
+    "subject": "Friday Lecture Series",
+    "day": "Friday",
+    "time": "5:15 PM–6:15 PM",
+    "dates": "Nov 13, 2026",
+    "courseId": "5273",
+    "sectionId": "10718",
+    "status": "Available",
+    "students": 13,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5273"
+  },
+  {
+    "title": "Protecting Your ASSets",
+    "instructor": "Jean Ryan",
+    "subject": "Friday Lecture Series",
+    "day": "Friday",
+    "time": "5:15 PM–6:15 PM",
+    "dates": "Dec 4, 2026",
+    "courseId": "5272",
+    "sectionId": "10717",
+    "status": "Available",
+    "students": 20,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5272"
+  },
+  {
+    "title": "International Trade",
+    "instructor": "Ronald Weaver",
+    "subject": "History",
+    "day": "Friday",
+    "time": "6:00 PM–7:30 PM",
+    "dates": "Nov 13 – Nov 20, 2026",
+    "courseId": "5248",
+    "sectionId": "10693",
+    "status": "Available",
+    "students": 5,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$195.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5248"
+  },
+  {
+    "title": "Be Your Own Best Patient Advocate (and Your Loved One's Too)",
+    "instructor": "Dianne Borovies",
+    "subject": "Science & Nature",
+    "day": "Friday",
+    "time": "6:00 PM–8:00 PM",
+    "dates": "Nov 13 – Nov 20, 2026",
+    "courseId": "5213",
+    "sectionId": "10663",
+    "status": "Available",
+    "students": 9,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$351.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5213"
+  },
+  {
+    "title": "American Women During World War II",
+    "instructor": "Sheryl Long",
+    "subject": "History",
+    "day": "Monday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 12, 2026",
+    "courseId": "5154",
+    "sectionId": "10596",
+    "status": "Available",
+    "students": 8,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$87.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5154"
+  },
+  {
+    "title": "Women Rowing North: Navigating Life's Currents and Flourishing As We Age - CANCELLED 9/23/2026",
+    "instructor": "Kay McAuliffe",
+    "subject": "Humanities & Arts",
+    "day": "Monday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 5 – Oct 26, 2026",
+    "courseId": "5151",
+    "sectionId": "10593",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5151"
+  },
+  {
+    "title": "The Democratic Field for 2028: Who's in the Running?",
+    "instructor": "Ronald Weaver",
+    "subject": "Politics & Current Events",
+    "day": "Monday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Oct 26 – Nov 2, 2026",
+    "courseId": "5299",
+    "sectionId": "10841",
+    "status": "Available",
+    "students": 2,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 20,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$78.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5299"
+  },
+  {
+    "title": "Success Growing Roses in Florida",
+    "instructor": "Margaret Ostrenko; Steve Peters",
+    "subject": "Science & Nature",
+    "day": "Monday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Oct 5 – Oct 6, 2026",
+    "courseId": "5196",
+    "sectionId": "10646",
+    "status": "Available",
+    "students": 6,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 2,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$234.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5196"
+  },
+  {
+    "title": "Tampa Museum of Art: Fall 2026 Tour",
+    "instructor": "Sara Cohen",
+    "subject": "Humanities & Arts",
+    "day": "Monday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Oct 19, 2026",
+    "courseId": "5141",
+    "sectionId": "10586",
+    "status": "Available",
+    "students": 15,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$435.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5141"
+  },
+  {
+    "title": "Why be Ethical",
+    "instructor": "George Sherman",
+    "subject": "Humanities & Arts",
+    "day": "Monday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Oct 5 – Oct 12, 2026",
+    "courseId": "5148",
+    "sectionId": "10591",
+    "status": "Available",
+    "students": 10,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$390.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5148"
+  },
+  {
+    "title": "Decluttering 55+: Not for Closets Only, Get Your Whole Life in Order",
+    "instructor": "Michelle Passoff",
+    "subject": "Fitness, Lifestyles",
+    "day": "Monday",
+    "time": "3:00 PM–4:30 PM",
+    "dates": "Nov 9, 2026",
+    "courseId": "5265",
+    "sectionId": "10710",
+    "status": "Available",
+    "students": 11,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$319.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5265"
+  },
+  {
+    "title": "El Niño, Why the Fuss & What it May Portend",
+    "instructor": "Robert Weisberg",
+    "subject": "Science & Nature",
+    "day": "Monday",
+    "time": "3:00 PM–4:30 PM",
+    "dates": "Nov 16 – Nov 23, 2026",
+    "courseId": "5215",
+    "sectionId": "10665",
+    "status": "Available",
+    "students": 4,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 20,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$156.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5215"
+  },
+  {
+    "title": "African American Women Who Didn't Make the History Books",
+    "instructor": "Sheryl Long",
+    "subject": "History",
+    "day": "Monday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Nov 9, 2026",
+    "courseId": "5153",
+    "sectionId": "10594",
+    "status": "Available",
+    "students": 2,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$58.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5153"
+  },
+  {
+    "title": "The Seekers: Voices of the 1960s",
+    "instructor": "Bruce Gobioff",
+    "subject": "Humanities & Arts",
+    "day": "Monday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Nov 9 – Nov 16, 2026",
+    "courseId": "5150",
+    "sectionId": "10592",
+    "status": "Available",
+    "students": 5,
+    "capacity": 75,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$195.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5150"
+  },
+  {
+    "title": "The Invisible Thread: 3,500 Years of Global Supply Chain",
+    "instructor": "Instructor not listed",
+    "subject": "History",
+    "day": "Monday",
+    "time": "3:00 PM–5:30 PM",
+    "dates": "Oct 19 – Nov 23, 2026",
+    "courseId": "5142",
+    "sectionId": "10587",
+    "status": "Available",
+    "students": 3,
+    "capacity": 13,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$255.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5142"
+  },
+  {
+    "title": "Tampa Museum of Art: Fall 2026 Tour",
+    "instructor": "Sara Cohen",
+    "subject": "Humanities & Arts",
+    "day": "Monday",
+    "time": "3:30 PM–5:00 PM",
+    "dates": "Nov 9, 2026",
+    "courseId": "5144",
+    "sectionId": "10588",
+    "status": "Available",
+    "students": 15,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$435.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5144"
+  },
+  {
+    "title": "Beginning Mahjongg: Learn to Play",
+    "instructor": "Fran Cooperwasser",
+    "subject": "Fitness, Lifestyles",
+    "day": "Monday",
+    "time": "4:00 PM–6:00 PM",
+    "dates": "Sep 14 – Sep 28, 2026",
+    "courseId": "5156",
+    "sectionId": "10597",
+    "status": "Available",
+    "students": 7,
+    "capacity": 7,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 6,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$245.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5156"
+  },
+  {
+    "title": "Mahjongg II: Strategies for Success",
+    "instructor": "Fran Cooperwasser",
+    "subject": "Fitness, Lifestyles",
+    "day": "Monday",
+    "time": "4:00 PM–6:00 PM",
+    "dates": "Oct 12 – Oct 26, 2026",
+    "courseId": "5157",
+    "sectionId": "10599",
+    "status": "Available",
+    "students": 5,
+    "capacity": 7,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$245.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5157"
+  },
+  {
+    "title": "500 Years of Florida Heroes and Scandals",
+    "instructor": "Ronald Weaver",
+    "subject": "History",
+    "day": "Monday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Oct 5 – Oct 19, 2026",
+    "courseId": "5257",
+    "sectionId": "10702",
+    "status": "Available",
+    "students": 6,
+    "capacity": 16,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 15,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$343.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5257"
+  },
+  {
+    "title": "Pundits, Polls & Politics! The 2026 Mid-term Election!",
+    "instructor": "Doug Stowell",
+    "subject": "Politics & Current Events",
+    "day": "Monday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Oct 26, 2026",
+    "courseId": "5159",
+    "sectionId": "10601",
+    "status": "Available",
+    "students": 9,
+    "capacity": 55,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$261.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5159"
+  },
+  {
+    "title": "The Friendly Art of Reading Poetry",
+    "instructor": "Heather Sellers",
+    "subject": "Literature & Writing",
+    "day": "Monday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Sep 28 – Oct 5, 2026",
+    "courseId": "5161",
+    "sectionId": "10603",
+    "status": "Available",
+    "students": 8,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$312.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5161"
+  },
+  {
+    "title": "Iran: The Bomb, USA, and Israel",
+    "instructor": "Garry Tenney",
+    "subject": "History",
+    "day": "Monday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Sep 14 – Oct 12, 2026",
+    "courseId": "5182",
+    "sectionId": "10622",
+    "status": "Available",
+    "students": 18,
+    "capacity": 26,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$649.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5182"
+  },
+  {
+    "title": "Healthy Aging",
+    "instructor": "Instructor not listed",
+    "subject": "Fitness, Lifestyles",
+    "day": "Monday",
+    "time": "5:00 PM–7:30 PM",
+    "dates": "Oct 26 – Nov 4, 2026",
+    "courseId": "5261",
+    "sectionId": "10706",
+    "status": "Available",
+    "students": 3,
+    "capacity": 16,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 15,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$78.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5261"
+  },
+  {
+    "title": "Creative Fiction: You Have a Book in You",
+    "instructor": "Rod Martinez",
+    "subject": "Literature & Writing",
+    "day": "Monday",
+    "time": "6:00 PM–8:00 PM",
+    "dates": "Nov 2 – Nov 23, 2026",
+    "courseId": "5147",
+    "sectionId": "10590",
+    "status": "Available",
+    "students": 4,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$236.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5147"
+  },
+  {
+    "title": "Easier, Safer Passwords",
+    "instructor": "Penny Noriega",
+    "subject": "Computers",
+    "day": "Monday",
+    "time": "6:00 PM–8:00 PM",
+    "dates": "Nov 9, 2026",
+    "courseId": "5171",
+    "sectionId": "10621",
+    "status": "Available",
+    "students": 8,
+    "capacity": 10,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$232.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5171"
+  },
+  {
+    "title": "Secret Soldiers of World War II",
+    "instructor": "Howard Kerner",
+    "subject": "History",
+    "day": "Monday",
+    "time": "6:30 PM–8:30 PM",
+    "dates": "Nov 9, 2026",
+    "courseId": "5163",
+    "sectionId": "10605",
+    "status": "Available",
+    "students": 7,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$203.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5163"
+  },
+  {
+    "title": "Sacred Mountains of the World",
+    "instructor": "Instructor not listed",
+    "subject": "Humanities & Arts",
+    "day": "Monday",
+    "time": "7:00 PM–9:30 PM",
+    "dates": "Oct 5 – Nov 9, 2026",
+    "courseId": "5165",
+    "sectionId": "10607",
+    "status": "Available",
+    "students": 5,
+    "capacity": 13,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$425.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5165"
+  },
+  {
+    "title": "Sundays with Science",
+    "instructor": "Peter Neame",
+    "subject": "Science & Nature",
+    "day": "Sunday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Oct 25 – Dec 6, 2026",
+    "courseId": "5209",
+    "sectionId": "10659",
+    "status": "Available",
+    "students": 16,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$885.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5209"
+  },
+  {
+    "title": "Conversational Spanish",
+    "instructor": "Leonor O'Relly",
+    "subject": "Fitness, Lifestyles",
+    "day": "Thursday",
+    "time": "10:00 PM–12:30 AM",
+    "dates": "Oct 8 – Nov 6, 2026",
+    "courseId": "5240",
+    "sectionId": "10685",
+    "status": "Available",
+    "students": 7,
+    "capacity": 12,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$525.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5240"
+  },
+  {
+    "title": "iPhone Essentials: All the Basics",
+    "instructor": "Jeanne Dyer; Kitty Sullivan",
+    "subject": "Mobile Device",
+    "day": "Thursday",
+    "time": "1:30 PM–3:30 PM",
+    "dates": "Sep 24 – Oct 8, 2026",
+    "courseId": "5276",
+    "sectionId": "10721",
+    "status": "Available",
+    "students": 12,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 2,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$441.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5276"
+  },
+  {
+    "title": "iPhone Shorts: Master Apple Intelligence",
+    "instructor": "Jeanne Dyer",
+    "subject": "Mobile Device",
+    "day": "Thursday",
+    "time": "1:30 PM–3:30 PM",
+    "dates": "Oct 22 – Oct 29, 2026",
+    "courseId": "5155",
+    "sectionId": "10604",
+    "status": "Available",
+    "students": 8,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$312.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5155"
+  },
+  {
+    "title": "What's new in iOS 27 for iPhone and iPad?",
+    "instructor": "Jeanne Dyer",
+    "subject": "Mobile Device",
+    "day": "Thursday",
+    "time": "1:30 PM–3:30 PM",
+    "dates": "Oct 15, 2026",
+    "courseId": "5149",
+    "sectionId": "10600",
+    "status": "Available",
+    "students": 14,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$406.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5149"
+  },
+  {
+    "title": "The Gilded Age: Beyond the HBO Series",
+    "instructor": "Barbara Goldstein",
+    "subject": "History",
+    "day": "Thursday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Sep 17 – Oct 8, 2026",
+    "courseId": "5227",
+    "sectionId": "10672",
+    "status": "Available",
+    "students": 4,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$236.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5227"
+  },
+  {
+    "title": "How to Talk Like a Venetian Glass Expert: Secrets, Power, and Pasta",
+    "instructor": "Judi Murphy",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Oct 8, 2026",
+    "courseId": "5258",
+    "sectionId": "10703",
+    "status": "Available",
+    "students": 18,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$702.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5258"
+  },
+  {
+    "title": "Security and Privacy for iPhones and iPads",
+    "instructor": "Brian Noriega",
+    "subject": "Mobile Device",
+    "day": "Thursday",
+    "time": "2:30 PM–4:30 PM",
+    "dates": "Nov 5, 2026",
+    "courseId": "5162",
+    "sectionId": "10610",
+    "status": "Available",
+    "students": 7,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$203.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5162"
+  },
+  {
+    "title": "Those \"Other\" Great iPhone/iPad Apps",
+    "instructor": "Jeanne Dyer; Kitty Sullivan",
+    "subject": "Applications",
+    "day": "Thursday",
+    "time": "2:30 PM–4:30 PM",
+    "dates": "Nov 12 – Nov 19, 2026",
+    "courseId": "5173",
+    "sectionId": "10623",
+    "status": "Available",
+    "students": 5,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 2,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$195.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5173"
+  },
+  {
+    "title": "Conversational Art History",
+    "instructor": "Jeff Burns",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "2:30 PM–5:00 PM",
+    "dates": "Oct 22 – Nov 5, 2026",
+    "courseId": "5226",
+    "sectionId": "10671",
+    "status": "Available",
+    "students": 12,
+    "capacity": 24,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$441.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5226"
+  },
+  {
+    "title": "Dickens and Debtors Prisons",
+    "instructor": "John Beaumont",
+    "subject": "History",
+    "day": "Thursday",
+    "time": "3:00 PM–4:30 PM",
+    "dates": "Dec 3, 2026",
+    "courseId": "5225",
+    "sectionId": "10670",
+    "status": "Available",
+    "students": 3,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$87.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5225"
+  },
+  {
+    "title": "Our Inner Fish: The Story of Human Evolution",
+    "instructor": "Bharat Pathakjee",
+    "subject": "Science & Nature",
+    "day": "Thursday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Nov 5 – Dec 3, 2026",
+    "courseId": "5211",
+    "sectionId": "10661",
+    "status": "Available",
+    "students": 4,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$236.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5211"
+  },
+  {
+    "title": "Sherlock Holmes III: The Last Adventure",
+    "instructor": "Diane White",
+    "subject": "Literature & Writing",
+    "day": "Thursday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Nov 12 – Nov 19, 2026",
+    "courseId": "5228",
+    "sectionId": "10673",
+    "status": "Available",
+    "students": 16,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$624.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5228"
+  },
+  {
+    "title": "Silent Killers: How Tiny Invaders Challenge Our Health",
+    "instructor": "Iain Duffy",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Dec 3, 2026",
+    "courseId": "5254",
+    "sectionId": "10699",
+    "status": "Available",
+    "students": 3,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$87.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5254"
+  },
+  {
+    "title": "The World Through Glass: Bohemia, A Legacy of Glassmaking and Innovation",
+    "instructor": "Judi Murphy",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "3:00 PM–6:00 PM",
+    "dates": "Dec 10, 2026",
+    "courseId": "5268",
+    "sectionId": "10713",
+    "status": "Available",
+    "students": 8,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$312.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5268"
+  },
+  {
+    "title": "Let's Talk About Art: Women, Real and Imagined",
+    "instructor": "Anne Bolin",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "3:30 PM–5:00 PM",
+    "dates": "Nov 12 – Nov 19, 2026",
+    "courseId": "5267",
+    "sectionId": "10712",
+    "status": "Available",
+    "students": 7,
+    "capacity": 16,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$273.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5267"
+  },
+  {
+    "title": "Presidential Character and Power - CANCELLED on 9/15/2026",
+    "instructor": "Instructor not listed",
+    "subject": "Politics & Current Events",
+    "day": "Thursday",
+    "time": "4:30 PM–6:30 PM",
+    "dates": "Sep 24 – Oct 8, 2026",
+    "courseId": "5237",
+    "sectionId": "10682",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 35,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5237"
+  },
+  {
+    "title": "The Midterms and the Future of America",
+    "instructor": "Rich Kennedy",
+    "subject": "Politics & Current Events",
+    "day": "Thursday",
+    "time": "4:30 PM–6:30 PM",
+    "dates": "Oct 22 – Oct 29, 2026",
+    "courseId": "5238",
+    "sectionId": "10683",
+    "status": "Available",
+    "students": 8,
+    "capacity": 35,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$312.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5238"
+  },
+  {
+    "title": "Acrylic Painting with Judy",
+    "instructor": "Judy Heady",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "4:30 PM–7:00 PM",
+    "dates": "Oct 8 – Oct 15, 2026",
+    "courseId": "5230",
+    "sectionId": "10675",
+    "status": "Available",
+    "students": 5,
+    "capacity": 12,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 12,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$195.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5230"
+  },
+  {
+    "title": "T'ai Chi Chih: Joy Thru Movement",
+    "instructor": "Anita Vestal",
+    "subject": "Fitness, Lifestyles",
+    "day": "Thursday",
+    "time": "4:45 PM–5:30 PM",
+    "dates": "Oct 8 – Oct 29, 2026",
+    "courseId": "5229",
+    "sectionId": "10674",
+    "status": "Available",
+    "students": 13,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$354.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5229"
+  },
+  {
+    "title": "WEDU PBS Studio: Behind the Scenes Tour",
+    "instructor": "Karen Wright",
+    "subject": "Day Trips",
+    "day": "Thursday",
+    "time": "5:00 AM–4:30 AM",
+    "dates": "Nov 12 – Nov 13, 2026",
+    "courseId": "5290",
+    "sectionId": "10780",
+    "status": "Available",
+    "students": 25,
+    "capacity": 50,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$500.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5290"
+  },
+  {
+    "title": "Discover Your NeuroCreative Mind: Stay Sharp, Inspired, and Engaged",
+    "instructor": "Instructor not listed",
+    "subject": "Fitness, Lifestyles",
+    "day": "Thursday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Oct 15 – Oct 29, 2026",
+    "courseId": "5233",
+    "sectionId": "10678",
+    "status": "Available",
+    "students": 4,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$147.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5233"
+  },
+  {
+    "title": "Smarter Searching: AI as Your Research Aide",
+    "instructor": "Instructor not listed",
+    "subject": "Other",
+    "day": "Thursday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Oct 22, 2026",
+    "courseId": "5158",
+    "sectionId": "10606",
+    "status": "Available",
+    "students": 5,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$145.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5158"
+  },
+  {
+    "title": "Exploring the Deep Sea",
+    "instructor": "Instructor not listed",
+    "subject": "Science & Nature",
+    "day": "Thursday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Sep 17, 2026",
+    "courseId": "5188",
+    "sectionId": "10638",
+    "status": "Available",
+    "students": 11,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$319.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5188"
+  },
+  {
+    "title": "India and the USA: 250 Years of Trade, Migration and Geopolitics",
+    "instructor": "Bharat Pathakjee; Sharon Stoll",
+    "subject": "History",
+    "day": "Thursday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Sep 17 – Oct 8, 2026",
+    "courseId": "5232",
+    "sectionId": "10677",
+    "status": "Available",
+    "students": 6,
+    "capacity": 60,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 2,
+    "staffRoles": "TaEnrollment; TeacherEnrollment",
+    "revenue": "$295.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5232"
+  },
+  {
+    "title": "It Don't Mean a Thing If it Ain't Got That Sting",
+    "instructor": "Matt Allen",
+    "subject": "Science & Nature",
+    "day": "Thursday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Oct 8, 2026",
+    "courseId": "5203",
+    "sectionId": "10653",
+    "status": "Available",
+    "students": 12,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$348.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5203"
+  },
+  {
+    "title": "Microplastics in Our Oceans",
+    "instructor": "Instructor not listed",
+    "subject": "Science & Nature",
+    "day": "Thursday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Oct 15, 2026",
+    "courseId": "5205",
+    "sectionId": "10654",
+    "status": "Available",
+    "students": 5,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$145.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5205"
+  },
+  {
+    "title": "More Highlights of History!",
+    "instructor": "Alan Kay",
+    "subject": "History",
+    "day": "Thursday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Sep 17 – Oct 29, 2026",
+    "courseId": "5234",
+    "sectionId": "10679",
+    "status": "Available",
+    "students": 13,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$1,020.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5234"
+  },
+  {
+    "title": "Smarter Searching: AI as Your Research Aide",
+    "instructor": "Evan Fruehauf",
+    "subject": "Technology Topics",
+    "day": "Thursday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Oct 29, 2026",
+    "courseId": "5263",
+    "sectionId": "10708",
+    "status": "Available",
+    "students": 3,
+    "capacity": 16,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 15,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$87.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5263"
+  },
+  {
+    "title": "Baseball in the 1940s: A Whole New Game",
+    "instructor": "Michael Martin",
+    "subject": "History",
+    "day": "Thursday",
+    "time": "5:00 PM–8:00 PM",
+    "dates": "Oct 22 – Nov 5, 2026",
+    "courseId": "5231",
+    "sectionId": "10676",
+    "status": "Available",
+    "students": 5,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$245.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5231"
+  },
+  {
+    "title": "Leonardo da Vinci: the Man and the Renaissance",
+    "instructor": "Instructor not listed",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "5:00 PM–8:00 PM",
+    "dates": "Oct 15 – Nov 19, 2026",
+    "courseId": "5235",
+    "sectionId": "10680",
+    "status": "Available",
+    "students": 3,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$255.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5235"
+  },
+  {
+    "title": "New Adventures in Writing",
+    "instructor": "Marilyn Myerson",
+    "subject": "Literature & Writing",
+    "day": "Thursday",
+    "time": "5:30 PM–7:30 PM",
+    "dates": "Oct 8 – Oct 29, 2026",
+    "courseId": "5236",
+    "sectionId": "10681",
+    "status": "Available",
+    "students": 2,
+    "capacity": 7,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$118.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5236"
+  },
+  {
+    "title": "Context Engineering: Get AI to Actually Get You",
+    "instructor": "Evan Fruehauf",
+    "subject": "Other",
+    "day": "Thursday",
+    "time": "6:00 PM–7:30 PM",
+    "dates": "Nov 12, 2026",
+    "courseId": "5175",
+    "sectionId": "10625",
+    "status": "Available",
+    "students": 2,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$58.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5175"
+  },
+  {
+    "title": "Turning Personal Stories into Powerful Speaking",
+    "instructor": "Jackie Walker",
+    "subject": "Fitness, Lifestyles",
+    "day": "Thursday",
+    "time": "6:30 PM–8:00 PM",
+    "dates": "Nov 5 – Nov 12, 2026",
+    "courseId": "5191",
+    "sectionId": "10632",
+    "status": "Available",
+    "students": 0,
+    "capacity": 10,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5191"
+  },
+  {
+    "title": "Early 20th Century Avant-Garde: From Rebellion to Abstraction",
+    "instructor": "Instructor not listed",
+    "subject": "Humanities & Arts",
+    "day": "Thursday",
+    "time": "9:00 PM–11:30 PM",
+    "dates": "Oct 8 – Nov 12, 2026",
+    "courseId": "5239",
+    "sectionId": "10684",
+    "status": "Available",
+    "students": 6,
+    "capacity": 13,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$510.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5239"
+  },
+  {
+    "title": "Future Aging: Tech Innovations from USF",
+    "instructor": "Instructor not listed",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "2:00 PM–3:00 PM",
+    "dates": "Sep 22, 2026",
+    "courseId": "5274",
+    "sectionId": "10719",
+    "status": "Available",
+    "students": 7,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$117.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5274"
+  },
+  {
+    "title": "Tampa International Airport: Behind the Scenes Terminal Tour",
+    "instructor": "Karen Wright",
+    "subject": "Day Trips",
+    "day": "Tuesday",
+    "time": "2:00 PM–3:00 PM",
+    "dates": "Sep 29, 2026",
+    "courseId": "5220",
+    "sectionId": "10668",
+    "status": "Available",
+    "students": 20,
+    "capacity": 21,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 20,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$400.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5220"
+  },
+  {
+    "title": "Essential Documents for Florida Living",
+    "instructor": "Sarah Williams",
+    "subject": "Fitness, Lifestyles",
+    "day": "Tuesday",
+    "time": "2:00 PM–3:15 PM",
+    "dates": "Oct 13, 2026",
+    "courseId": "5259",
+    "sectionId": "10704",
+    "status": "Available",
+    "students": 7,
+    "capacity": 16,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 15,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$203.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5259"
+  },
+  {
+    "title": "Flourishing in the Next Stage of Life: An Applied Psychology Program",
+    "instructor": "Instructor not listed",
+    "subject": "Fitness, Lifestyles",
+    "day": "Tuesday",
+    "time": "2:00 PM–3:30 PM",
+    "dates": "Oct 6 – Oct 27, 2026",
+    "courseId": "5167",
+    "sectionId": "10608",
+    "status": "Available",
+    "students": 6,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$354.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5167"
+  },
+  {
+    "title": "Making the Most of ChatGPT Everyday",
+    "instructor": "John Beaumont",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "2:00 PM–3:30 PM",
+    "dates": "Oct 6, 2026",
+    "courseId": "5143",
+    "sectionId": "10595",
+    "status": "Available",
+    "students": 20,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$551.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5143"
+  },
+  {
+    "title": "AI and the Law: Who's Responsible When Machines Think? - Cancelled on 09/25/2026",
+    "instructor": "Instructor not listed",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Sep 29, 2026",
+    "courseId": "5185",
+    "sectionId": "10636",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$58.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5185"
+  },
+  {
+    "title": "From Rome with Love: Leo XIV and the Papacy Today",
+    "instructor": "Stephen Okey",
+    "subject": "Humanities & Arts",
+    "day": "Tuesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 27, 2026",
+    "courseId": "5252",
+    "sectionId": "10697",
+    "status": "Available",
+    "students": 7,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$203.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5252"
+  },
+  {
+    "title": "The 2026 Mid-Term Elections Wave and Beyond 2028",
+    "instructor": "Frank Orlando",
+    "subject": "Humanities & Arts",
+    "day": "Tuesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 6, 2026",
+    "courseId": "5251",
+    "sectionId": "10696",
+    "status": "Available",
+    "students": 6,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$174.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5251"
+  },
+  {
+    "title": "The Secrets to a Great Gen-AI Prompt",
+    "instructor": "John Beaumont",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 20, 2026",
+    "courseId": "5152",
+    "sectionId": "10602",
+    "status": "Available",
+    "students": 6,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 20,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$116.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5152"
+  },
+  {
+    "title": "Trump's High Stakes Power-Politics Against Russia in Ukraine, Islamic Iran in the Gulf and China on Taiwan - Cancelled",
+    "instructor": "Instructor not listed",
+    "subject": "Politics & Current Events",
+    "day": "Tuesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Sep 8, 2026",
+    "courseId": "5250",
+    "sectionId": "10695",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5250"
+  },
+  {
+    "title": "Willie Mays or Mickey Mantle? Using Metrics to Measure Success in Baseball",
+    "instructor": "Terry Sincich",
+    "subject": "Fitness, Lifestyles",
+    "day": "Tuesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 6 – Oct 13, 2026",
+    "courseId": "5180",
+    "sectionId": "10620",
+    "status": "Available",
+    "students": 6,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$234.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5180"
+  },
+  {
+    "title": "Yoga for Healthy Aging",
+    "instructor": "Jennifer Leavy",
+    "subject": "Fitness, Lifestyles",
+    "day": "Tuesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 6 – Oct 27, 2026",
+    "courseId": "5178",
+    "sectionId": "10618",
+    "status": "Available",
+    "students": 3,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$177.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5178"
+  },
+  {
+    "title": "Intermediate Watercolor Class: You Survived Beginners Level so Let's Swim On",
+    "instructor": "Brenda Weiss",
+    "subject": "Humanities & Arts",
+    "day": "Tuesday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Sep 29 – Nov 3, 2026",
+    "courseId": "5206",
+    "sectionId": "10647",
+    "status": "Available",
+    "students": 6,
+    "capacity": 12,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$595.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5206"
+  },
+  {
+    "title": "Organic Architecture: Frank Lloyd Wright & Beyond",
+    "instructor": "Mark Tlachac",
+    "subject": "Humanities & Arts",
+    "day": "Tuesday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Oct 20 – Nov 10, 2026",
+    "courseId": "5172",
+    "sectionId": "10613",
+    "status": "Available",
+    "students": 3,
+    "capacity": 21,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$177.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5172"
+  },
+  {
+    "title": "Talkin' Headlines: A Casual Forum on Current Affairs",
+    "instructor": "Steven Tobin",
+    "subject": "Politics & Current Events",
+    "day": "Tuesday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Sep 29 – Nov 4, 2026",
+    "courseId": "5174",
+    "sectionId": "10615",
+    "status": "Available",
+    "students": 18,
+    "capacity": 35,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$1,062.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5174"
+  },
+  {
+    "title": "All About Traffic Roundabouts",
+    "instructor": "Ken Sides",
+    "subject": "Fitness, Lifestyles",
+    "day": "Tuesday",
+    "time": "2:30 PM–5:00 PM",
+    "dates": "Dec 1, 2026",
+    "courseId": "5169",
+    "sectionId": "10611",
+    "status": "Available",
+    "students": 2,
+    "capacity": 50,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$58.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5169"
+  },
+  {
+    "title": "Artificial Intelligence (AI) in Teaching and Learning",
+    "instructor": "Valerie Wright",
+    "subject": "Humanities & Arts",
+    "day": "Tuesday",
+    "time": "3:00 PM–4:00 PM",
+    "dates": "Nov 10, 2026",
+    "courseId": "5253",
+    "sectionId": "10698",
+    "status": "Available",
+    "students": 2,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$58.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5253"
+  },
+  {
+    "title": "Advance Directives vs. DNRs: What's the Difference and Why Should We Care?",
+    "instructor": "Sarah Williams",
+    "subject": "Fitness, Lifestyles",
+    "day": "Tuesday",
+    "time": "3:00 PM–4:15 PM",
+    "dates": "Nov 10, 2026",
+    "courseId": "5266",
+    "sectionId": "10711",
+    "status": "Available",
+    "students": 1,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$29.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5266"
+  },
+  {
+    "title": "Avoiding Scams in an AI World",
+    "instructor": "John Beaumont",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "3:00 PM–4:30 PM",
+    "dates": "Nov 17, 2026",
+    "courseId": "5177",
+    "sectionId": "10627",
+    "status": "Available",
+    "students": 2,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$58.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5177"
+  },
+  {
+    "title": "Living in an AI-Driven World",
+    "instructor": "John Beaumont",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "3:00 PM–4:30 PM",
+    "dates": "Nov 3, 2026",
+    "courseId": "5164",
+    "sectionId": "10612",
+    "status": "Available",
+    "students": 3,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$87.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5164"
+  },
+  {
+    "title": "Outsider Collage Workshop",
+    "instructor": "Sheryl Long",
+    "subject": "Humanities & Arts",
+    "day": "Tuesday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Dec 1 – Dec 8, 2026",
+    "courseId": "5210",
+    "sectionId": "10651",
+    "status": "Available",
+    "students": 1,
+    "capacity": 8,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$39.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5210"
+  },
+  {
+    "title": "Talkin' Headlines: A Casual Forum on Current Affairs",
+    "instructor": "Steven Tobin",
+    "subject": "Politics & Current Events",
+    "day": "Tuesday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Nov 10 – Dec 8, 2026",
+    "courseId": "5176",
+    "sectionId": "10616",
+    "status": "Available",
+    "students": 15,
+    "capacity": 35,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$885.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5176"
+  },
+  {
+    "title": "Understanding AI Today: Large Language Models and Robotics",
+    "instructor": "Bruce Gobioff",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Dec 1 – Dec 8, 2026",
+    "courseId": "5183",
+    "sectionId": "10634",
+    "status": "Available",
+    "students": 3,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$117.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5183"
+  },
+  {
+    "title": "Spies, Lies and Betrayal",
+    "instructor": "Mike Pheneger",
+    "subject": "History",
+    "day": "Tuesday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Sep 8 – Oct 13, 2026",
+    "courseId": "5145",
+    "sectionId": "10589",
+    "status": "Available",
+    "students": 7,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$425.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5145"
+  },
+  {
+    "title": "The Midterms and the Future of America - CANCELLED 9/23/2026",
+    "instructor": "Rich Kennedy",
+    "subject": "Politics & Current Events",
+    "day": "Tuesday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Sep 29 – Oct 6, 2026",
+    "courseId": "5184",
+    "sectionId": "10624",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 40,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5184"
+  },
+  {
+    "title": "Up for Discussion: Four Novels of American Life in the Tumultuous First Half of the 20th Century",
+    "instructor": "Linda Feeney",
+    "subject": "Literature & Writing",
+    "day": "Tuesday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Oct 6 – Oct 27, 2026",
+    "courseId": "5189",
+    "sectionId": "10630",
+    "status": "Available",
+    "students": 22,
+    "capacity": 21,
+    "waitlistEnabled": false,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$1,239.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5189"
+  },
+  {
+    "title": "The Supreme Court Today",
+    "instructor": "Jeff Swartz",
+    "subject": "Politics & Current Events",
+    "day": "Tuesday",
+    "time": "5:30 PM–7:30 PM",
+    "dates": "Oct 13 – Oct 27, 2026",
+    "courseId": "5186",
+    "sectionId": "10626",
+    "status": "Available",
+    "students": 13,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$312.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5186"
+  },
+  {
+    "title": "Everyday Tech, AI and Cyber Safety: Building Confidence in a Digital World",
+    "instructor": "Dr. Michelle  Angelo-Rocha",
+    "subject": "Other",
+    "day": "Tuesday",
+    "time": "6:00 PM–8:00 PM",
+    "dates": "Nov 3 – Nov 17, 2026",
+    "courseId": "5166",
+    "sectionId": "10614",
+    "status": "Available",
+    "students": 4,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$196.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5166"
+  },
+  {
+    "title": "Remembering America's Creed at 250",
+    "instructor": "Joseph McAuliffe",
+    "subject": "History",
+    "day": "Tuesday",
+    "time": "6:00 PM–8:00 PM",
+    "dates": "Nov 10, 2026",
+    "courseId": "5187",
+    "sectionId": "10628",
+    "status": "Available",
+    "students": 15,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$290.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5187"
+  },
+  {
+    "title": "Tracing Our Roots: DNA, Family History, and the Politics of Identity",
+    "instructor": "Instructor not listed",
+    "subject": "Science & Nature",
+    "day": "Wednesday",
+    "time": "11:00 PM–1:30 AM",
+    "dates": "Sep 30 – Nov 5, 2026",
+    "courseId": "5223",
+    "sectionId": "10666",
+    "status": "Available",
+    "students": 4,
+    "capacity": 13,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$340.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5223"
+  },
+  {
+    "title": "Centro Asturiano de Tampa - the Crown Jewel of Ybor City Mutual Aid Societies",
+    "instructor": "Joe Caravella",
+    "subject": "History",
+    "day": "Wednesday",
+    "time": "2:00 PM–3:00 PM",
+    "dates": "Oct 7, 2026",
+    "courseId": "5208",
+    "sectionId": "10649",
+    "status": "Available",
+    "students": 10,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$290.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5208"
+  },
+  {
+    "title": "Beatlemania: The Fab Four in 1964 -CANCELLED 9/28/2026",
+    "instructor": "Michael Hayes",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Sep 30 – Oct 21, 2026",
+    "courseId": "5256",
+    "sectionId": "10701",
+    "status": "Cancelled",
+    "students": 2,
+    "capacity": 16,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 15,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$118.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5256"
+  },
+  {
+    "title": "Conversational Italian IV",
+    "instructor": "Catherine Mitchell",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Sep 16 – Oct 21, 2026",
+    "courseId": "5193",
+    "sectionId": "10633",
+    "status": "Available",
+    "students": 8,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$600.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5193"
+  },
+  {
+    "title": "Let's Learn About Canada, Eh! - CANCELLED 9/15/2026",
+    "instructor": "Instructor not listed",
+    "subject": "Literature & Writing",
+    "day": "Wednesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Sep 16 – Sep 30, 2026",
+    "courseId": "5204",
+    "sectionId": "10645",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5204"
+  },
+  {
+    "title": "Tell Your Story: Create Short Films with AI",
+    "instructor": "Frida Guzman",
+    "subject": "Computers",
+    "day": "Wednesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Sep 23 – Oct 7, 2026",
+    "courseId": "5275",
+    "sectionId": "10720",
+    "status": "Available",
+    "students": 5,
+    "capacity": 10,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$147.00",
+    "parentSubject": "Technology",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5275"
+  },
+  {
+    "title": "The History of Tobacco and Cigar Labels",
+    "instructor": "Amanda Hoffman",
+    "subject": "History",
+    "day": "Wednesday",
+    "time": "2:00 PM–4:00 PM",
+    "dates": "Oct 14, 2026",
+    "courseId": "5198",
+    "sectionId": "10639",
+    "status": "Available",
+    "students": 7,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$203.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5198"
+  },
+  {
+    "title": "TV Streaming Essentials",
+    "instructor": "Larry Weatherby",
+    "subject": "Other",
+    "day": "Wednesday",
+    "time": "2:00 PM–4:30 PM",
+    "dates": "Oct 28 – Nov 4, 2026",
+    "courseId": "5160",
+    "sectionId": "10609",
+    "status": "Available",
+    "students": 2,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$78.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5160"
+  },
+  {
+    "title": "Islam...No God But God",
+    "instructor": "Jack Herman",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Oct 14 – Nov 4, 2026",
+    "courseId": "5197",
+    "sectionId": "10637",
+    "status": "Available",
+    "students": 3,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$177.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5197"
+  },
+  {
+    "title": "Life Story Writing I",
+    "instructor": "Raymond Paltoo",
+    "subject": "Literature & Writing",
+    "day": "Wednesday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Oct 14 – Nov 4, 2026",
+    "courseId": "5202",
+    "sectionId": "10643",
+    "status": "Available",
+    "students": 3,
+    "capacity": 10,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$177.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5202"
+  },
+  {
+    "title": "She Created What? Artistic Women Who Didn't Make the History Books",
+    "instructor": "Sheryl Long",
+    "subject": "History",
+    "day": "Wednesday",
+    "time": "2:00 PM–5:00 PM",
+    "dates": "Oct 28 – Nov 4, 2026",
+    "courseId": "5262",
+    "sectionId": "10707",
+    "status": "Available",
+    "students": 2,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$78.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5262"
+  },
+  {
+    "title": "Closet-ology: The Search for Self-Esteem Through the Psychology of Your Closet",
+    "instructor": "Jackie Walker",
+    "subject": "Fitness, Lifestyles",
+    "day": "Wednesday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Sep 16 – Sep 23, 2026",
+    "courseId": "5195",
+    "sectionId": "10635",
+    "status": "Available",
+    "students": 6,
+    "capacity": 23,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$234.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5195"
+  },
+  {
+    "title": "Jackie Robinson and Curt Flood: Heroes Who Changed Baseball and America Forever",
+    "instructor": "Richard Zamoff",
+    "subject": "History",
+    "day": "Wednesday",
+    "time": "2:30 PM–4:00 PM",
+    "dates": "Oct 14 – Oct 21, 2026",
+    "courseId": "5260",
+    "sectionId": "10705",
+    "status": "Available",
+    "students": 2,
+    "capacity": 15,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$78.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5260"
+  },
+  {
+    "title": "TV for (Nearly) Free with an Antenna",
+    "instructor": "Larry Weatherby",
+    "subject": "Other",
+    "day": "Wednesday",
+    "time": "3:00 PM–4:30 PM",
+    "dates": "Nov 18, 2026",
+    "courseId": "5179",
+    "sectionId": "10629",
+    "status": "Available",
+    "students": 3,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$87.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5179"
+  },
+  {
+    "title": "The History of Hillsborough County's Communities",
+    "instructor": "Amanda Hoffman",
+    "subject": "History",
+    "day": "Wednesday",
+    "time": "3:00 PM–5:00 PM",
+    "dates": "Dec 2 – Dec 16, 2026",
+    "courseId": "5200",
+    "sectionId": "10641",
+    "status": "Available",
+    "students": 12,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$588.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5200"
+  },
+  {
+    "title": "Port Tampa Bay Tour",
+    "instructor": "Mary Coffeen",
+    "subject": "Day Trips",
+    "day": "Wednesday",
+    "time": "4:00 AM–3:30 AM",
+    "dates": "Oct 21 – Oct 22, 2026",
+    "courseId": "5289",
+    "sectionId": "10777",
+    "status": "Available",
+    "students": 38,
+    "capacity": 38,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$760.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5289"
+  },
+  {
+    "title": "Centro Asturiano de Tampa - the Crown Jewel of Ybor City Mutual Aid Societies",
+    "instructor": "Instructor not listed",
+    "subject": "History",
+    "day": "Wednesday",
+    "time": "5:00 AM–4:30 AM",
+    "dates": "Nov 4 – Nov 5, 2026",
+    "courseId": "5291",
+    "sectionId": "10786",
+    "status": "Unpublished",
+    "students": 5,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$145.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5291"
+  },
+  {
+    "title": "Big Tech Billionaires: The Voice of the People?",
+    "instructor": "Dr Zelly Martin",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "5:00 PM–6:00 PM",
+    "dates": "Oct 21, 2026",
+    "courseId": "5216",
+    "sectionId": "10656",
+    "status": "Available",
+    "students": 5,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$145.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5216"
+  },
+  {
+    "title": "The Bond Mirror Vol. 2",
+    "instructor": "Christopher Novak",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "5:00 PM–6:00 PM",
+    "dates": "Sep 23, 2026",
+    "courseId": "5214",
+    "sectionId": "10655",
+    "status": "Available",
+    "students": 3,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$87.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5214"
+  },
+  {
+    "title": "Behind the Door at Jack Kerouac's House",
+    "instructor": "Instructor not listed",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "5:00 PM–6:30 PM",
+    "dates": "Sep 23, 2026",
+    "courseId": "5255",
+    "sectionId": "10700",
+    "status": "Available",
+    "students": 14,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$406.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5255"
+  },
+  {
+    "title": "Great Books Fall 2026: Great Friendships",
+    "instructor": "Kevin Chittim",
+    "subject": "Literature & Writing",
+    "day": "Wednesday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Sep 16 – Sep 30, 2026",
+    "courseId": "5219",
+    "sectionId": "10660",
+    "status": "Available",
+    "students": 14,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$686.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5219"
+  },
+  {
+    "title": "I Need My (Outer) Space",
+    "instructor": "Charles Dittmar",
+    "subject": "Science & Nature",
+    "day": "Wednesday",
+    "time": "5:00 PM–7:00 PM",
+    "dates": "Oct 7 – Oct 28, 2026",
+    "courseId": "5201",
+    "sectionId": "10650",
+    "status": "Available",
+    "students": 7,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$413.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5201"
+  },
+  {
+    "title": "Post-War Architecture",
+    "instructor": "Instructor not listed",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "5:00 PM–7:30 PM",
+    "dates": "Oct 7 – Nov 11, 2026",
+    "courseId": "5222",
+    "sectionId": "10664",
+    "status": "Available",
+    "students": 3,
+    "capacity": 13,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$255.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5222"
+  },
+  {
+    "title": "US Foreign Policy: 1945 - 1991",
+    "instructor": "Joseph McAuliffe",
+    "subject": "History",
+    "day": "Wednesday",
+    "time": "5:00 PM–7:30 PM",
+    "dates": "Oct 21 – Nov 4, 2026",
+    "courseId": "5212",
+    "sectionId": "10652",
+    "status": "Available",
+    "students": 5,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$245.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5212"
+  },
+  {
+    "title": "Great Books Fall 2026: The Play's the Thing",
+    "instructor": "Kevin Chittim",
+    "subject": "Literature & Writing",
+    "day": "Wednesday",
+    "time": "5:00 PM–8:00 PM",
+    "dates": "Oct 28 – Nov 18, 2026",
+    "courseId": "5221",
+    "sectionId": "10662",
+    "status": "Available",
+    "students": 15,
+    "capacity": 20,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$885.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5221"
+  },
+  {
+    "title": "Layers: The Missing Link between Media Literacy and Digital Fluency",
+    "instructor": "Dr. Zoo Chae",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "6:00 PM–7:00 PM",
+    "dates": "Nov 18, 2026",
+    "courseId": "5218",
+    "sectionId": "10658",
+    "status": "Available",
+    "students": 0,
+    "capacity": 30,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5218"
+  },
+  {
+    "title": "The Supreme Court Today",
+    "instructor": "Jeff Swartz",
+    "subject": "Politics & Current Events",
+    "day": "Wednesday",
+    "time": "6:00 PM–8:00 PM",
+    "dates": "Nov 4 – Dec 2, 2026",
+    "courseId": "5264",
+    "sectionId": "10709",
+    "status": "Available",
+    "students": 12,
+    "capacity": 16,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 15,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$588.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5264"
+  },
+  {
+    "title": "Living off the Laughter: History of Comedy in America",
+    "instructor": "Instructor not listed",
+    "subject": "Humanities & Arts",
+    "day": "Wednesday",
+    "time": "7:00 PM–9:30 PM",
+    "dates": "Oct 14 – Nov 18, 2026",
+    "courseId": "5224",
+    "sectionId": "10669",
+    "status": "Available",
+    "students": 10,
+    "capacity": 13,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$850.00",
+    "parentSubject": "Liberal Arts",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5224"
+  },
+  {
+    "title": "AI Tech Rescue",
+    "instructor": "Matthew",
+    "subject": "Other",
+    "day": "Wednesday",
+    "time": "8:00 PM–9:00 PM",
+    "dates": "Oct 7 – Oct 28, 2026",
+    "courseId": "5146",
+    "sectionId": "10598",
+    "status": "Available",
+    "students": 5,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 1,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$295.00",
+    "parentSubject": "Other",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5146"
+  },
+  {
+    "title": "(Ignore) DEMO for Announcement Testing",
+    "instructor": "Instructor not listed",
+    "subject": "Osher Lifelong Learning Institute",
+    "day": "Schedule not listed",
+    "time": "Time not listed",
+    "dates": "Schedule not listed",
+    "courseId": "5130",
+    "sectionId": "10552",
+    "status": "Available",
+    "students": 1,
+    "capacity": null,
+    "waitlistEnabled": false,
+    "waitlistCapacity": null,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$0.00",
+    "parentSubject": "University of South Florida",
+    "url": "https://usfcorporatetraining.instructure.com/courses/5130"
+  },
+  {
+    "title": "Ginger Health Payment (OLLI USF)",
+    "instructor": "Instructor not listed",
+    "subject": "Events",
+    "day": "Schedule not listed",
+    "time": "Time not listed",
+    "dates": "Schedule not listed",
+    "courseId": "4695",
+    "sectionId": "9387",
+    "status": "Available",
+    "students": 0,
+    "capacity": null,
+    "waitlistEnabled": false,
+    "waitlistCapacity": null,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/4695"
+  },
+  {
+    "title": "OLLI-USF Membership",
+    "instructor": "Instructor not listed",
+    "subject": "Osher Lifelong Learning Institute",
+    "day": "Schedule not listed",
+    "time": "Time not listed",
+    "dates": "Schedule not listed",
+    "courseId": "4180",
+    "sectionId": "7178",
+    "status": "Available",
+    "students": 980,
+    "capacity": null,
+    "waitlistEnabled": false,
+    "waitlistCapacity": null,
+    "staffEnrollments": 0,
+    "staffRoles": "",
+    "revenue": "$19,861.00",
+    "parentSubject": "University of South Florida",
+    "url": "https://usfcorporatetraining.instructure.com/courses/4180"
+  },
+  {
+    "title": "The Florida Railroad Museum: Self-drive Day Trip (Cancelled)",
+    "instructor": "Cath Mason; Mary Coffeen",
+    "subject": "Day Trips",
+    "day": "Schedule not listed",
+    "time": "Time not listed",
+    "dates": "Schedule not listed",
+    "courseId": "4762",
+    "sectionId": "9495",
+    "status": "Cancelled",
+    "students": 0,
+    "capacity": 25,
+    "waitlistEnabled": true,
+    "waitlistCapacity": 25,
+    "staffEnrollments": 2,
+    "staffRoles": "TeacherEnrollment",
+    "revenue": "$0.00",
+    "parentSubject": "Travel and Social Events",
+    "url": "https://usfcorporatetraining.instructure.com/courses/4762"
+  }
+];
+
+// Build filters and course grid
+const usedSubjects = [...new Set(courses.map(c => c.subject))].sort();
+const usedDays = [...new Set(courses.map(c => c.day))].sort((a,b) => {
+  const order = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday','Schedule not listed'];
+  return order.indexOf(a) - order.indexOf(b);
+});
+document.getElementById('total-count').textContent = courses.length;
+document.getElementById('subject-count').textContent = usedSubjects.length;
+
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const subjBtns = document.getElementById('subj-btns');
+usedSubjects.forEach(subject => {
+  const sc = subjectConfig[subject];
+  const btn = document.createElement('button');
+  btn.className = 'fbtn';
+  btn.dataset.type = 'subject';
+  btn.dataset.val = subject;
+  btn.textContent = subject;
+  btn.style.cssText = `border-color:${sc.dot};color:${sc.text}`;
+  btn.onclick = () => toggle(btn);
+  subjBtns.appendChild(btn);
+});
+
+const dayBtns = document.getElementById('day-btns');
+usedDays.forEach(day => {
+  const btn = document.createElement('button');
+  btn.className = 'fbtn';
+  btn.dataset.type = 'day';
+  btn.dataset.val = day;
+  btn.textContent = day === 'Schedule not listed' ? 'No date' : day.slice(0,3);
+  btn.style.cssText = 'border-color:#555;color:#555';
+  btn.onclick = () => toggle(btn);
+  dayBtns.appendChild(btn);
+});
+
+const grid = document.getElementById('grid');
+courses.forEach((c, idx) => {
+  const sc = subjectConfig[c.subject];
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.subject = c.subject;
+  card.dataset.day = c.day;
+  card.dataset.status = c.status;
+  card.dataset.idx = idx;
+  card.onclick = () => openModal(idx);
+  const statusStyle = c.status === 'Cancelled' ? 'background:#FCEBEB;color:#791F1F' : 'background:#EAF3DE;color:#27500A';
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="subj-icon" style="background:${sc.bg}">${sc.emoji}</div>
+      <div class="card-info">
+        <div class="card-title">${esc(c.title)}</div>
+        <div class="card-sgl">${esc(c.instructor)}</div>
+      </div>
+    </div>
+    <div class="card-schedule">
+      <span class="sched-day">${esc(c.day === 'Schedule not listed' ? 'Date TBD' : c.day.slice(0,3))}</span>
+      <span class="sched-dot">·</span>
+      <span class="sched-time">${esc(c.time)}</span>
+    </div>
+    <div class="card-badges">
+      <span class="badge" style="background:${sc.bg};color:${sc.text}">${esc(sc.label)}</span>
+      <span class="badge" style="${statusStyle}">${esc(c.status)}</span>
+    </div>
+    <div class="card-btn">View details</div>`;
+  grid.appendChild(card);
+});
+
+function openModal(idx) {
+  const c = courses[idx];
+  const sc = subjectConfig[c.subject];
+  document.getElementById('modal-title').textContent = c.title;
+  const statusStyle = c.status === 'Cancelled' ? 'background:#FCEBEB;color:#791F1F' : 'background:#EAF3DE;color:#27500A';
+  document.getElementById('modal-meta').innerHTML = `
+    <span class="badge" style="background:${sc.bg};color:${sc.text};font-size:11px;padding:3px 8px">${sc.emoji} ${esc(sc.label)}</span>
+    <span class="badge" style="${statusStyle};font-size:11px;padding:3px 8px">${esc(c.status)}</span>
+    <span class="badge" style="background:#f4f6f9;color:#002D62;font-size:11px;padding:3px 8px;font-weight:700">${esc(c.day)} · ${esc(c.time)}</span>
+    <span class="badge" style="background:#f4f6f9;color:#666;font-size:11px;padding:3px 8px">${esc(c.dates)}</span>`;
+
+  const registration = c.students == null ? 'Not listed' : `${c.students}${c.capacity == null ? '' : ` of ${c.capacity}`} enrolled`;
+  const waitlist = c.waitlistEnabled ? `Enabled${c.waitlistCapacity == null ? '' : ` · capacity ${c.waitlistCapacity}`}` : 'Not enabled';
+  const instructor = c.staffRoles ? `${c.instructor} (${c.staffRoles})` : c.instructor;
+  const link = c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">Open course in Canvas</a>` : 'Course link not available';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-sgl">Instructor: ${esc(instructor)}</div>
+    <div class="modal-row">
+      <div class="modal-section"><div class="modal-section-title">Enrollment</div><p>${esc(registration)}</p></div>
+      <div class="modal-section"><div class="modal-section-title">Waitlist</div><p>${esc(waitlist)}</p></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-section"><div class="modal-section-title">Course ID</div><p>${esc(c.courseId || 'Not listed')}</p></div>
+      <div class="modal-section"><div class="modal-section-title">Section ID</div><p>${esc(c.sectionId || 'Not listed')}</p></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-section"><div class="modal-section-title">Course revenue</div><p>${esc(c.revenue || 'Not listed')}</p></div>
+      <div class="modal-section"><div class="modal-section-title">Staff enrollments</div><p>${esc(c.staffEnrollments ?? 'Not listed')}</p></div>
+    </div>
+    <div class="modal-section"><div class="modal-section-title">Catalog grouping</div><p>${esc(c.parentSubject)} · ${esc(c.subject)}</p></div>
+    <div class="modal-section" style="margin-top:12px;padding-top:10px;border-top:1px solid #eee"><p>${link}</p></div>`;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) { if (e.target === document.getElementById('modal-overlay')) closeModalDirect(); }
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+const active = {subject:null, day:null, status:null};
+function toggle(btn) {
+  const type = btn.dataset.type, val = btn.dataset.val;
+  const wasActive = active[type] === val;
+  document.querySelectorAll(`.fbtn[data-type="${type}"]`).forEach(b => {
+    b.classList.remove('active'); b.style.fontWeight='500'; b.style.background='#fff';
+  });
+  active[type] = wasActive ? null : val;
+  if (!wasActive) {
+    btn.classList.add('active'); btn.style.fontWeight='700';
+    const sc = subjectConfig[val];
+    btn.style.background = sc ? sc.bg : '#f0f4fb';
+  }
+  applyFilters();
+}
+function clearAll() {
+  Object.keys(active).forEach(k => active[k]=null);
+  document.querySelectorAll('.fbtn').forEach(b => {
+    b.classList.remove('active'); b.style.fontWeight='500'; b.style.background='#fff';
+  });
+  document.getElementById('search-input').value = '';
+  applyFilters();
+}
+function applyFilters() {
+  const searchTerm = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+  let visible = 0;
+  document.querySelectorAll('.card').forEach(card => {
+    const c = courses[Number(card.dataset.idx)];
+    const filterMatch = (!active.subject || active.subject === card.dataset.subject)
+      && (!active.day || active.day === card.dataset.day)
+      && (!active.status || active.status === card.dataset.status);
+    const searchMatch = !searchTerm || [c.title, c.instructor, c.subject, c.parentSubject, c.courseId, c.sectionId, c.status, c.dates]
+      .some(field => String(field || '').toLowerCase().includes(searchTerm));
+    const show = filterMatch && searchMatch;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  document.getElementById('count-row').textContent = visible === courses.length
+    ? `Showing all ${visible} courses`
+    : `Showing ${visible} of ${courses.length} courses`;
+}
+applyFilters();
+</script>
+</body>
+</html>
